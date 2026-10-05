@@ -442,13 +442,14 @@ export const exercises: Exercise[] = [
     ],
     category: "toracica",
     region: "Ombro",
-    goal: "Puxar a banda em direção ao rosto, com rotação externa dos ombros.",
+    goal: "Puxar a banda em direção ao rosto, com rotação externa dos ombros, sem prender em nada.",
     setup: [
-      "Banda presa na altura dos olhos (porta/maçaneta)."
+      "Segure a banda com as duas mãos à frente do rosto. Sem porta, maçaneta ou poste."
     ],
     how: [
-      "Puxe em direção ao rosto com os cotovelos altos, girando os antebraços para trás (“mãos passam ao lado das orelhas”).",
-      "Pausa de 2 s."
+      "Cotovelos na altura dos ombros, palmas para baixo.",
+      "Puxe as mãos em direção às orelhas, abrindo os cotovelos e girando os polegares para trás.",
+      "Cerca de 10 repetições. Pescoço longo."
     ],
     cues: [
       "Cotovelos na altura do ombro",
@@ -456,7 +457,7 @@ export const exercises: Exercise[] = [
       "Pescoço longo"
     ],
     breathing: "Expire ao puxar",
-    dose: "3 × 12–15",
+    dose: "10 repetições, banda nas mãos",
     minPhase: 1,
     videos: [
       {
@@ -485,14 +486,14 @@ export const exercises: Exercise[] = [
     ],
     category: "toracica",
     region: "Omoplatas",
-    goal: "Remar a banda em pé, com a base larga de quem espera a bola.",
+    goal: "Remar a banda em pé, pisando nela, com a base larga de quem espera a bola.",
     setup: [
-      "Banda presa na altura do umbigo."
+      "Pise no meio da banda. Sem poste. Num braço só, um pé pisa na ponta e o tronco não gira."
     ],
     how: [
-      "Base em passada ou meio agachamento atlético (raso).",
-      "Puxe com os cotovelos junto ao corpo, escápulas para trás e para baixo.",
-      "Versão unilateral acrescenta anti-rotação."
+      "Joelhos macios, tronco longo.",
+      "Puxe o cotovelo para trás, escápula desce.",
+      "Cerca de 10 neste lado. O outro braço é o bloco seguinte."
     ],
     cues: [
       "Joelhos macios",
@@ -500,7 +501,7 @@ export const exercises: Exercise[] = [
       "Escápula desce e junta um pouco"
     ],
     breathing: "Expire ao puxar",
-    dose: "3 × 12 (por lado se unilateral)",
+    dose: "10 por lado, pisando na banda",
     minPhase: 1,
     videos: [
       {
@@ -809,7 +810,7 @@ export const exercises: Exercise[] = [
     ],
     how: [
       "Expire estendendo braço e perna opostos, mantendo a lombar estável — nem arqueada, nem esmagada contra o chão.",
-      "Avançado: pernas estendidas mais baixas, tempo de 4 s, ou segurando uma banda presa atrás da cabeça (anti-extensão)."
+      "Avançado: pernas mais baixas, tempo de 4 s, ou uma banda segurada entre as mãos e o joelho — sem prender atrás da cabeça."
     ],
     cues: [
       "Lombar estável em neutro",
@@ -1308,15 +1309,15 @@ export const exercises: Exercise[] = [
     ],
     category: "core",
     region: "Core anti-rotação",
-    goal: "Empurrar a banda à frente e não deixar o tronco girar.",
+    goal: "Empurrar a banda à frente e não deixar o tronco girar. O pé é a âncora.",
     setup: [
-      "Banda presa na altura do peito, ao seu lado."
+      "Sem poste, porta ou coluna. Pise na banda com o pé do lado deste bloco e segure as duas pontas na altura do peito."
     ],
     how: [
-      "Em base atlética (ou meio-ajoelhado), mãos no esterno.",
-      "Expire empurrando os braços à frente sem deixar o tronco girar.",
-      "Pausa de 2–3 s.",
-      "Volte."
+      "Base atlética, joelhos macios, mãos no esterno.",
+      "Expire e empurre os braços à frente sem deixar o tronco girar.",
+      "Cerca de 10 empurrões neste lado. O outro lado é o bloco seguinte.",
+      "Se quiser, passe a banda por um móvel baixo e firme — só se não escorregar. O pé continua valendo."
     ],
     cues: [
       "Braços vão, tronco não gira",
@@ -1324,7 +1325,7 @@ export const exercises: Exercise[] = [
       "Expire na extensão"
     ],
     breathing: "Expire ao empurrar",
-    dose: "3 × 10 por lado",
+    dose: "10 por lado, em 30 segundos",
     minPhase: 1,
     videos: [
       {
@@ -1339,8 +1340,8 @@ export const exercises: Exercise[] = [
       "Prender a respiração",
       "Deixar a banda vencer a rotação"
     ],
-    easier: "Mais perto da âncora, banda no peito por 20 segundos.",
-    harder: "Ajoelhado, ou um passo à frente na extensão. 3 × 10 por lado.",
+    easier: "Segure a banda mais folgada, com os braços junto ao peito, por menos empurrões.",
+    harder: "Ajoelhado, ou um passo à frente na extensão. 10 por lado.",
     why: "É o núcleo do tênis: a raquete vai, a lombar fica."
   },
   {
@@ -1394,7 +1395,7 @@ export const exercises: Exercise[] = [
     id: "sereia",
     name: "Sereia (Mermaid) Sentado",
     aka: "Mermaid",
-    image: "/exercises/ex-livro-aberto.webp",
+    image: "/exercises/ex-sereia.webp",
     equipment: [
       "nada"
     ],
@@ -1405,9 +1406,9 @@ export const exercises: Exercise[] = [
       "Sentado de lado (pernas dobradas para o mesmo lado) ou de pernas cruzadas, sobre almofada."
     ],
     how: [
-      "Eleve um braço e incline lateralmente o tronco para o lado oposto.",
-      "Volte e incline para o outro lado.",
-      "Opcional: rotação torácica no final."
+      "Eleve o braço de cima e incline o tronco para o lado, sentado.",
+      "Volte ao centro. O outro flanco é o próximo bloco.",
+      "Opcional no fim: uma rotação torácica pequena, ainda sentado."
     ],
     cues: [
       "Sente num ísquio de cada vez, ou sobre almofada",
@@ -1415,7 +1416,7 @@ export const exercises: Exercise[] = [
       "Braço desliza longo"
     ],
     breathing: "Expire ao inclinar",
-    dose: "4 por lado",
+    dose: "10 por lado, sentado, um bloco para cada flanco",
     minPhase: 1,
     videos: [
       {
@@ -1616,7 +1617,7 @@ export const exercises: Exercise[] = [
     id: "side-kick",
     name: "Série de Chutes Laterais (Side Kick Series)",
     aka: "Side Kick Series",
-    image: "/exercises/ex-concha.webp",
+    image: "/exercises/ex-side-kick.webp",
     equipment: [
       "nada"
     ],
@@ -1793,18 +1794,20 @@ export const exercises: Exercise[] = [
     id: "balanco-lateral",
     name: "Balanço Lateral de Pernas (plano frontal)",
     aka: "Lateral Leg Swings",
-    image: "/exercises/ex-rotacao-pe.webp",
+    image: "/exercises/ex-balanco.webp",
     equipment: [
-      "nada"
+      "parede"
     ],
     category: "quadril",
     region: "Quadril",
     goal: "Balançar a perna no plano lateral, tronco quieto, como um pêndulo.",
     setup: [
-      "Apoiado na parede, balance a perna lateralmente, cruzando à frente do corpo, com amplitude progressiva."
+      "Em pé, uma mão na parede só para equilíbrio. O tronco fica alto e não gira."
     ],
     how: [
-      "Apoiado na parede, balance a perna lateralmente, cruzando à frente do corpo, com amplitude progressiva."
+      "Mão na parede só para não perder o equilíbrio. Tronco alto e quieto.",
+      "Balance a perna para o lado, cruzando um pouco à frente, como um pêndulo.",
+      "Cerca de 10 neste lado. O outro lado vem no bloco seguinte."
     ],
     cues: [
       "Mão num apoio",
@@ -1812,7 +1815,7 @@ export const exercises: Exercise[] = [
       "Amplitude que não puxa o ísquio"
     ],
     breathing: "Natural",
-    dose: "10–15 por lado",
+    dose: "10 por lado",
     minPhase: 1,
     videos: [
       {
@@ -1932,7 +1935,7 @@ export const exercises: Exercise[] = [
     id: "iso-prono",
     name: "Isometria Prona de Flexão de Joelho (banda)",
     aka: "Prone Isometric Hamstring Curl",
-    image: "/exercises/ex-press-up.webp",
+    image: "/exercises/ex-curl-prono.webp",
     equipment: [
       "banda"
     ],
@@ -1940,7 +1943,7 @@ export const exercises: Exercise[] = [
     region: "Tendão isquiotibial",
     goal: "De bruços, segurar a banda com o joelho flexionado, sem varrer a perna.",
     setup: [
-      "De bruços (travesseiro sob a pelve se a lombar incomodar), banda presa a um ponto fixo e ao tornozelo."
+      "De bruços, testa apoiada. Passe a banda no tornozelo e segure as pontas com as mãos. Sem porta, poste ou pé de cama."
     ],
     how: [
       "Flexione o joelho a ~30–60° e sustente contra a banda.",
@@ -2071,7 +2074,7 @@ export const exercises: Exercise[] = [
     id: "curl-banda",
     name: "Flexão de Joelho Prona com Banda (Hamstring Curl)",
     aka: "Prone Band Hamstring Curl",
-    image: "/exercises/ex-press-up.webp",
+    image: "/exercises/ex-curl-prono.webp",
     equipment: [
       "banda"
     ],
@@ -2079,7 +2082,7 @@ export const exercises: Exercise[] = [
     region: "Tendão isquiotibial",
     goal: "Flexão de joelho prona com banda, lenta, tempo 3-1-3.",
     setup: [
-      "De bruços, banda ancorada (pé da cama/porta) e presa ao tornozelo."
+      "De bruços. Banda em volta do tornozelo e pontas nas mãos, ou enrolada no outro pé, que fica no chão. Sem porta, sem pé de cama e sem poste."
     ],
     how: [
       "Flexione o joelho até ~90° em 2 s e retorne em 3 s.",
@@ -2163,15 +2166,16 @@ export const exercises: Exercise[] = [
     id: "extensao-quadril",
     name: "Extensão de Quadril em Pé com Banda",
     aka: "Standing Banded Hip Extension",
-    image: "/exercises/ex-flexor.webp",
+    image: "/exercises/ex-extensao-quadril.webp",
     equipment: [
-      "banda"
+      "banda",
+      "parede"
     ],
     category: "tendao",
     region: "Tendão isquiotibial",
     goal: "Levar a perna para trás em pé, contra a banda, tronco quase parado.",
     setup: [
-      "Banda no tornozelo presa à frente, em baixo."
+      "Mini-banda nos dois tornozelos, ou pise numa ponta e prenda a outra no tornozelo de trás. A mão na parede é só equilíbrio. Sem poste."
     ],
     how: [
       "Em pé, com leve apoio, leve a perna estendida para trás contraindo glúteos e isquiotibiais, sem arquear a lombar.",
@@ -2454,7 +2458,7 @@ export const exercises: Exercise[] = [
     region: "Tendão isquiotibial",
     goal: "Nórdico assistido: desça o tronco com a banda ajudando, e volte com a ajuda dela.",
     setup: [
-      "Ajoelhado sobre almofada, tornozelos presos (sofá/parceiro), banda presa acima para assistir ou mãos à frente."
+      "Ajoelhado numa almofada. Pés debaixo de um sofá firme, que não escorregue, ou com ajuda de alguém. A banda fica nas mãos, à frente, para ajudar a voltar — sem porta e sem poste. Se não houver sofá seguro, faça o curl deitado com a banda no pé."
     ],
     how: [
       "Desça o tronco em linha reta joelhos–cabeça o mais lento possível (3–5 s), amortecendo com as mãos.",

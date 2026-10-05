@@ -20,8 +20,10 @@ export default function SemanaPage() {
     <main className="flex flex-1 flex-col px-4 pb-6 pt-[max(1.25rem,env(safe-area-inset-top))]">
       <h1 className="font-heading text-3xl">A semana no tapete</h1>
       <p className="mt-2 mb-6 text-base leading-relaxed text-muted-foreground">
-        Sete sessões de cerca de 30 minutos, com bloco extra opcional. O tendão entra todo dia na fase
-        que você escolheu: clássico, carga, tórax, tênis, pescoço, força e restauração.
+        Todo dia é um treino misto: mobilidade, abdômen, quadril útil para o tênis e o bloco do tendão
+        na fase salva neste aparelho. A ordem muda na semana. Os blocos ficam em cerca de 30 segundos ou
+        10 repetições, e o outro lado entra logo em seguida. A carga pesada do posterior fica na segunda
+        e, em dose menor, na quinta — nos outros dias o tendão descansa com isometria leve.
       </p>
       <div className="flex flex-col gap-4">
         {ordered.map((workout) => (

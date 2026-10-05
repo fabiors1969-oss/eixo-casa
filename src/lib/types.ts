@@ -38,6 +38,8 @@ export type WorkoutStep = {
   exerciseId: string;
   seconds: number;
   note?: string;
+  /** Quando o bloco é por repetição, o relógio de 30 s é só o teto. */
+  reps?: number;
 };
 
 export type StepOption = {
@@ -50,6 +52,7 @@ export type StepTemplate = {
   exerciseId: string;
   seconds: number;
   note?: string;
+  reps?: number;
   plus?: boolean;
   /** A opção de maior minPhase ainda ≤ fase atual substitui exerciseId. */
   options?: StepOption[];

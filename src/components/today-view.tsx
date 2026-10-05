@@ -5,7 +5,7 @@ import { AlertTriangle, HeartPulse, Play, Smartphone } from "lucide-react";
 import { WorkoutCard } from "@/components/workout-card";
 import { Button } from "@/components/ui/button";
 import { formatLongDate, greeting, todayKey, todayWeekday, formatMinutes } from "@/lib/date";
-import { completionOn, currentStreak, thisWeekCount, useProgress } from "@/lib/progress";
+import { completionOn, currentStreak, monthAdherence, thisWeekCount, useProgress } from "@/lib/progress";
 import { usePlusBlock, useTendonState } from "@/lib/tendon-store";
 import { getWorkoutByWeekday, resolveWorkout, workoutHasPlus, workoutTotalSeconds } from "@/lib/workouts";
 
@@ -20,6 +20,7 @@ export function TodayView() {
   const done = Boolean(completionOn(date, progress));
   const streak = currentStreak(date, progress);
   const weekCount = thisWeekCount(date, progress);
+  const month = monthAdherence(date, progress);
 
   return (
     <main className="flex flex-1 flex-col px-4 pb-6 pt-[max(1.25rem,env(safe-area-inset-top))]">
@@ -47,6 +48,27 @@ export function TodayView() {
           </p>
         </div>
       </div>
+
+      <Link
+        href="/voce#historico"
+        className="mb-5 block rounded-2xl bg-card p-4 ring-1 ring-foreground/8"
+      >
+        <div className="flex items-end justify-between gap-3">
+          <div>
+            <p className="text-sm text-muted-foreground">Este mês</p>
+            <p className="font-heading mt-1 text-3xl">
+              {month.trainedCount}
+              <span className="ml-1 text-base font-sans text-muted-foreground">
+                {month.trainedCount === 1 ? "dia" : "dias"}
+              </span>
+            </p>
+          </div>
+          <p className="mb-1 text-right text-sm font-medium text-primary">{month.adherencePercent}% de adesão</p>
+        </div>
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+          Dias com treino ÷ dias já decorridos ({month.elapsedDays}). Toque para abrir o calendário.
+        </p>
+      </Link>
 
       <p className="mb-3 text-sm font-medium text-muted-foreground">Treino de hoje · {formatMinutes(workoutTotalSeconds(workout))}</p>
       <WorkoutCard workout={template} done={done} today />

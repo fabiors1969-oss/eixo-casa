@@ -84,7 +84,9 @@ export default function TendaoPage() {
       <section className="mt-4">
         <h2 className="font-heading text-xl">Fase atual</h2>
         <p className="mt-1 text-sm text-muted-foreground">
-          Fica salva neste aparelho. Os treinos do dia puxam o bloco desta fase.
+          Fica salva neste aparelho. Todo dia mistura mobilidade, abdômen e quadril; o bloco do tendão sai
+          desta fase. A segunda é o dia mais pesado, a quinta é a segunda sessão, o sábado só vira energia na
+          fase 4. Nos outros dias a dose é leve.
         </p>
         <div className="mt-3 grid grid-cols-4 gap-2">
           {phaseGuides.map((item) => (
