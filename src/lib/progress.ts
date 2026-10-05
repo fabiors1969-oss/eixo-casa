@@ -1,4 +1,5 @@
 import { useSyncExternalStore } from "react";
+import { daysInMonth, formatMonthLabel } from "./date";
 import type { Completion, Feeling } from "./types";
 
 const STORAGE_KEY = "eixo-casa-progress-v1";
@@ -89,6 +90,44 @@ export function thisWeekCount(today: string, state: ProgressState): number {
   sunday.setDate(monday.getDate() + 6);
   return state.completions.filter((item) => item.date >= isoDate(monday) && item.date <= isoDate(sunday))
     .length;
+}
+
+export type MonthAdherence = {
+  monthKey: string;
+  label: string;
+  daysInMonth: number;
+  elapsedDays: number;
+  trainedDates: string[];
+  trainedCount: number;
+  adherencePercent: number;
+};
+
+/** Dias com treino dividido pelos dias já decorridos do mês. */
+export function monthAdherence(today: string, state: ProgressState, monthKey = today.slice(0, 7)): MonthAdherence {
+  const total = daysInMonth(monthKey);
+  const todayMonth = today.slice(0, 7);
+  const todayDay = Number(today.slice(8, 10));
+  let elapsed = total;
+  if (monthKey === todayMonth) elapsed = todayDay;
+  else if (monthKey > todayMonth) elapsed = 0;
+  const trainedDates = [
+    ...new Set(
+      state.completions
+        .map((item) => item.date)
+        .filter((date) => date.startsWith(`${monthKey}-`) && date <= today),
+    ),
+  ].sort();
+  const trainedCount = trainedDates.length;
+  const adherencePercent = elapsed === 0 ? 0 : Math.min(100, Math.round((trainedCount / elapsed) * 100));
+  return {
+    monthKey,
+    label: formatMonthLabel(monthKey),
+    daysInMonth: total,
+    elapsedDays: elapsed,
+    trainedDates,
+    trainedCount,
+    adherencePercent,
+  };
 }
 
 export const feelingLabel: Record<Feeling, string> = {

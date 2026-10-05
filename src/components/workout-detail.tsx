@@ -57,7 +57,7 @@ export function WorkoutDetail({ template }: { template: WorkoutTemplate }) {
             onClick={() => setPlusBlock(!plus)}
             className="mt-4 flex h-12 w-full items-center justify-center rounded-xl bg-secondary text-base font-medium"
           >
-            {plus ? "Bloco extra ligado · cerca de +10 min" : "Incluir bloco extra · cerca de +10 min"}
+            {plus ? "Bloco extra de abdômen ligado" : "Incluir bloco extra de abdômen"}
           </button>
         )}
 
@@ -91,7 +91,8 @@ export function WorkoutDetail({ template }: { template: WorkoutTemplate }) {
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="text-xs text-muted-foreground">
-                      {index + 1} · {formatClock(item.seconds)}
+                      {index + 1} · {item.reps ? `${item.reps} reps · ` : ""}
+                      {formatClock(item.seconds)}
                     </p>
                     <p className="truncate font-medium">{exercise.name}</p>
                     <p className="truncate text-sm text-muted-foreground">{item.note ?? exercise.cues[0]}</p>

@@ -67,6 +67,33 @@ export function weekdayShort(weekday: number): string {
   return ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"][weekday] ?? "";
 }
 
+/** Dia da semana em America/Sao_Paulo para uma data YYYY-MM-DD. */
+export function weekdayOfIso(iso: string): number {
+  return saoPauloParts(new Date(`${iso}T15:00:00Z`)).weekday;
+}
+
+export function shiftMonthKey(monthKey: string, delta: number): string {
+  const [yearText, monthText] = monthKey.split("-");
+  const date = new Date(Date.UTC(Number(yearText), Number(monthText) - 1 + delta, 1));
+  const year = date.getUTCFullYear();
+  const month = `${date.getUTCMonth() + 1}`.padStart(2, "0");
+  return `${year}-${month}`;
+}
+
+export function formatMonthLabel(monthKey: string): string {
+  const [yearText, monthText] = monthKey.split("-");
+  return new Intl.DateTimeFormat("pt-BR", {
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(Date.UTC(Number(yearText), Number(monthText) - 1, 1)));
+}
+
+export function daysInMonth(monthKey: string): number {
+  const [yearText, monthText] = monthKey.split("-");
+  return new Date(Date.UTC(Number(yearText), Number(monthText), 0)).getUTCDate();
+}
+
 export function formatClock(totalSeconds: number): string {
   const safe = Math.max(0, Math.round(totalSeconds));
   const minutes = Math.floor(safe / 60);

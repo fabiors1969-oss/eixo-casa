@@ -158,6 +158,7 @@ export function WorkoutPlayer({ template }: { template: WorkoutTemplate }) {
 
   const progress = Math.min(100, Math.round((elapsedWork / totalWork) * 100));
   const isPrep = phase === "ready" || phase === "transition";
+  const sideNote = sideRunCue(workout.steps, index);
   const shown = exercise;
   const shownDuration = phase === "done" ? 0 : remaining;
   const instructions = isPrep ? shown.setup : shown.how;
@@ -254,12 +255,13 @@ export function WorkoutPlayer({ template }: { template: WorkoutTemplate }) {
             onClick={() => setPlusBlock(!plus)}
             className="mt-3 text-left text-sm font-medium text-primary"
           >
-            {plus ? "Bloco extra ligado" : "Incluir bloco extra (+10 min)"}
+            {plus ? "Bloco extra de abdômen ligado" : "Incluir bloco extra de abdômen"}
           </button>
         )}
         {step.note && (
           <p className="mt-1 text-base font-medium leading-snug">{step.note}</p>
         )}
+        {sideNote && <p className="mt-1 text-sm font-medium text-primary">{sideNote}</p>}
         {!isPrep && (
           <p className="mt-2 text-base leading-relaxed text-muted-foreground">{shown.goal}</p>
         )}
@@ -274,7 +276,7 @@ export function WorkoutPlayer({ template }: { template: WorkoutTemplate }) {
             {formatClock(shownDuration)}
           </p>
           <p className="mb-1 max-w-[10rem] text-right text-sm text-muted-foreground">
-            {blockHint(step.seconds, paused, isPrep)}
+            {blockHint(step, paused, isPrep)}
           </p>
         </div>
 
@@ -319,14 +321,29 @@ export function WorkoutPlayer({ template }: { template: WorkoutTemplate }) {
   );
 }
 
-function blockHint(seconds: number, paused: boolean, prep: boolean): string {
+function blockHint(
+  step: { seconds: number; reps?: number },
+  paused: boolean,
+  prep: boolean,
+): string {
   if (prep) return "Leia a montagem e entre na pose.";
   if (paused) return "Pausado — a tela permanece acesa";
-  if (seconds >= 60 && seconds % 60 === 0) {
-    const minutes = seconds / 60;
-    return minutes === 1 ? "1 minuto neste bloco" : `${minutes} minutos neste bloco`;
-  }
-  return `${seconds} segundos neste bloco`;
+  if (step.reps) return `${step.reps} repetições · até ${step.seconds} s`;
+  return `${step.seconds} segundos neste bloco`;
+}
+
+function sideRunCue(steps: { exerciseId: string; note?: string }[], index: number): string | null {
+  const current = steps[index];
+  if (!current) return null;
+  let start = index;
+  while (start > 0 && steps[start - 1]?.exerciseId === current.exerciseId) start -= 1;
+  let end = index;
+  while (end + 1 < steps.length && steps[end + 1]?.exerciseId === current.exerciseId) end += 1;
+  if (end - start !== 1) return null;
+  const first = steps[start]?.note ?? "";
+  const second = steps[end]?.note ?? "";
+  if (!first || first === second || first.includes("série") || second.includes("série")) return null;
+  return index === start ? "Em seguida: o outro lado." : "Agora o outro lado.";
 }
 
 function FeelingDialog({

@@ -1,4 +1,4 @@
-const CACHE = "eixo-offline-v5";
+const CACHE = "eixo-offline-v6";
 const BASE_PATH = "";
 
 const PRECACHE = [
