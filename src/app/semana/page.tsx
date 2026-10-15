@@ -23,7 +23,8 @@ export default function SemanaPage() {
         Todo dia mistura alongamento, mobilidade, core do tênis e a dose do tendão. Sustentação e
         alongamento duram 30 segundos e passam sozinhos. Repetição é uma série de 10: sem relógio,
         você conta e toca em Feito. O outro lado entra logo em seguida. Mini-banda média no glúteo,
-        leve na escápula. Se o dia estiver marcado como musculação, o treino fica mais leve.
+        leve na escápula. O posterior alonga 30 segundos por lado, sem dor. Se o dia estiver marcado como
+        musculação, o treino fica mais leve.
       </p>
       <div className="flex flex-col gap-4">
         {ordered.map((workout) => (

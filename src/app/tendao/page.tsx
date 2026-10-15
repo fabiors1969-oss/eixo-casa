@@ -250,8 +250,8 @@ export default function TendaoPage() {
       <section className="mt-6">
         <h2 className="font-heading text-xl">O que saiu do plano</h2>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          Alongar o posterior não trata tendinopatia. Estes padrões comprimem a origem do tendão no ísquio, ou a
-          lombar, e foram trocados.
+          O alongamento do posterior continua no treino, em intensidade moderada. Estes outros padrões saíram:
+          flexionam a lombar, comprimem o ísquio direto ou são balísticos.
         </p>
         <ul className="mt-3 flex flex-col gap-3">
           {retiredMoves.map((item) => (

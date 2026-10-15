@@ -28,7 +28,7 @@ export default function VocePage() {
           Objetivo
         </h2>
         <ul className="mt-3 list-disc space-y-2 pl-5 text-base leading-relaxed">
-          <li>Alongamento e mobilidade em primeiro lugar: flexor, quadríceps, adutor, panturrilha, peitoral, flanco e tórax.</li>
+          <li>Alongamento e mobilidade em primeiro lugar: posterior em intensidade moderada, flexor, quadríceps, adutor, panturrilha, peitoral, flanco e tórax.</li>
           <li>Core para tênis e corrida: Pallof, dead bug e rotação controlada. Sem sit-up e sem crunch.</li>
           <li>Giba: recuo do queixo, extensão torácica no rolo, trapézio médio e inferior com mini-banda leve.</li>
           <li>Tendão proximal com carga terapêutica curta, mais leve no dia de musculação de perna.</li>
@@ -43,7 +43,7 @@ export default function VocePage() {
         <ul className="mt-3 list-disc space-y-2 pl-5 text-base leading-relaxed">
           <li>Osteoartrose lombar leve: nada de sit-up, crunch, Roll Over, Neck Pull ou extensão balística.</li>
           <li>Giba cervical: cabeça sempre apoiada no rolo. Retração pequena. Sem giro forçado do pescoço.</li>
-          <li>Tendão proximal (8 meses): sem alongamento de posterior, sem sentado longo em flexão funda, sem rolo no ísquio.</li>
+          <li>Tendão proximal: alongar o posterior sem dor. Se o ísquio piorar no dia seguinte, reduzir a amplitude. Sem rolo no ísquio.</li>
           <li>Em casa: banda longa, três mini-bandas (leve, média, forte) e rolo. Sem poste, porta ou coluna. A parede só apoia a mão ou os pés.</li>
         </ul>
       </section>

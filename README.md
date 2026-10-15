@@ -20,7 +20,7 @@ Material de apoio ao treino. Alinhe a fase do tendão com o fisioterapeuta e o m
 | Sábado | Misto | Energia só na fase 4; senão, leve |
 | Domingo | Misto | Recuperação |
 
-Todos os dias misturam alongamento seguro, mobilidade, core e o bloco da fase. A mini-banda média entra no glúteo (concha, abdução, monster walk); a leve, na escápula. A forte fica como progressão na ficha do exercício, não como dose diária. Alongar o posterior com o quadril dobrado (pegar o pé, sentar e alcançar, serra, pernas estendidas) não entra: comprime o tendão no ísquio. Nada de sit-up nem de rolo na lombar óssea.
+Todos os dias misturam alongamento, mobilidade, core e o bloco da fase. A mini-banda média entra no glúteo (concha, abdução, monster walk); a leve, na escápula. A forte fica como progressão na ficha do exercício, não como dose diária. O posterior de coxa alonga em intensidade moderada: sem dor; se o ísquio piorar no dia seguinte, reduzir a amplitude. Nada de sit-up nem de rolo na lombar óssea.
 
 O histórico do mês (dias treinados e % de adesão) fica em **Você**, só neste aparelho.
 

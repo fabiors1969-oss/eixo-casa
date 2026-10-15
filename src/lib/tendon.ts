@@ -107,13 +107,8 @@ export const painRule = {
 
 export const retiredMoves: { name: string; instead: string; why: string }[] = [
   {
-    name: "Alongamento de posterior com banda",
-    instead: "Carga progressiva (isometria e força lenta).",
-    why: "Flexão do quadril com o joelho estendido puxa e comprime a origem do tendão contra o ísquio. Alongar não trata tendinopatia.",
-  },
-  {
     name: "Spine Stretch Forward",
-    instead: "Fora do plano. Na fase 4, se o fisioterapeuta liberar, só com joelhos flexionados.",
+    instead: "Alongamento de isquiotibiais deitado ou em pé, moderado, sem dobrar a lombar.",
     why: "Sentar longo e dobrar o tronco à frente comprime o tendão e deixa a lombar em flexão — ruim para a artrose também.",
   },
   {
@@ -134,7 +129,7 @@ export const retiredMoves: { name: string; instead: string; why: string }[] = [
   {
     name: "Pernas estendidas na parede",
     instead: "Respiração 90/90 com os pés na parede e os joelhos dobrados.",
-    why: "Evita o alongamento de posterior com o quadril fletido.",
+    why: "O alongamento do dia é o deitado com a banda, ou em pé com as mãos na coxa, até o confortável.",
   },
   {
     name: "Balanço da perna para frente e para trás",
@@ -156,7 +151,7 @@ export const retiredMoves: { name: string; instead: string; why: string }[] = [
 export const sittingAdvice = [
   "Reunião, carro e consultório: assento macio ou uma almofada, e levante a cada 30–45 min.",
   "Evite cruzar as pernas e cadeira baixa, que enfia o quadril em flexão funda.",
-  "Nas fases 1 e 2, não alongue o posterior, não suba forte, não dê tiro e não aumente a passada.",
+  "O alongamento do posterior fica moderado: sem dor. Se o ísquio piorar no dia seguinte, reduza a amplitude. Nas fases 1 e 2, não suba forte, não dê tiro e não aumente a passada.",
   "Sono, carga da semana e pico repentino de volume pesam tanto quanto o exercício do dia.",
 ];
 

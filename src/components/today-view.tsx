@@ -115,7 +115,7 @@ export function TodayView() {
         <AlertTriangle className="mt-0.5 size-5 shrink-0 text-terracotta" />
         <p>
           Dor aguda, formigamento ou tontura: pare. No tendão, até 3/10 durante o exercício pode seguir, se
-          a manhã seguinte voltar ao basal. Cabeça apoiada no rolo. Sem alongar o posterior.
+          a manhã seguinte voltar ao basal. Cabeça apoiada no rolo.
         </p>
       </div>
     </main>

@@ -32,7 +32,7 @@ function skipGym(steps: StepTemplate[]): StepTemplate[] {
 }
 
 const mixWhy =
-  "O dia mistura mobilidade, alongamento seguro, core para o tênis e a dose terapêutica do tendão. A força de membros fica na academia. O posterior não é alongado com o quadril dobrado.";
+  "O dia mistura mobilidade, alongamento — o posterior entra em intensidade moderada —, core para o tênis e a dose terapêutica do tendão. A força de membros fica na academia. Alongar sem dor; se o ísquio piorar no dia seguinte, reduzir a amplitude.";
 
 export const workouts: WorkoutTemplate[] = [
   {
@@ -61,6 +61,7 @@ export const workouts: WorkoutTemplate[] = [
       ...pair("panturrilha-along", "Perna direita atrás. Calcanhar no chão.", "Perna esquerda atrás. Calcanhar no chão.", "hold"),
       ...withMini([reps("escapula-mini", "Mini-banda leve nos punhos. Queixo recuado.")], "leve"),
       ...pair("sereia", "Sentado. Incline para a direita.", "Sentado. Incline para a esquerda.", "hold"),
+      ...pair("posterior-deitado", "Perna direita. Alongue sem dor.", "Perna esquerda. Alongue sem dor.", "hold"),
       ...pair("criss-cross", "Gire para a direita, devagar.", "Gire para a esquerda, devagar.", "reps", true),
       ...pair("figura4", "Tornozelo direito por cima. Pé de baixo no chão.", "Tornozelo esquerdo por cima. Pé de baixo no chão.", "hold", true),
       ...pair("adutor-along", "Quadril para a direita, tronco alto.", "Quadril para a esquerda, tronco alto.", "hold", true),
@@ -72,7 +73,7 @@ export const workouts: WorkoutTemplate[] = [
     title: "Treino misto",
     shortTitle: "Misto",
     focus: "Alongamento de flanco, adutor e glúteo, rotação controlada e monster walk. Tendão em dose leve.",
-    why: `${mixWhy} Terça deixa o posterior descansar da dose de segunda e alonga o que não comprime o ísquio.`,
+    why: `${mixWhy} Terça deixa a carga do tendão leve e alonga o posterior em pé, só até o confortável.`,
     equipment: ["nada", "banda", "mini", "parede"],
     tendon: "analgesic",
     tendonAt: 5,
@@ -91,6 +92,7 @@ export const workouts: WorkoutTemplate[] = [
       reps("face-pull", "Banda longa nas mãos. Sem porta."),
       ...pair("deslize-neural", "Perna direita. Joelho dobrado, só o tornozelo.", "Perna esquerda. Joelho dobrado, só o tornozelo."),
       ...pair("peitoral-along", "Lado direito.", "Lado esquerdo.", "hold"),
+      ...pair("posterior-pe", "Perna direita. Mãos na coxa.", "Perna esquerda. Mãos na coxa.", "hold"),
       reps("pull-apart", "Banda longa. Escápulas descem."),
       ...pair("panturrilha-along", "Perna direita atrás.", "Perna esquerda atrás.", "hold", true),
       ...withMini([reps("escapula-mini", "Mais dez, mini-banda leve.", true)], "leve"),
@@ -122,6 +124,7 @@ export const workouts: WorkoutTemplate[] = [
       ...pair("adutor-along", "Quadril à direita.", "Quadril à esquerda.", "hold"),
       ...withMini(pair("concha", "Lado esquerdo no chão.", "Lado direito no chão."), "media"),
       reps("face-pull", "Cotovelos altos, pescoço longo."),
+      ...pair("posterior-deitado", "Perna direita. Pare no confortável.", "Perna esquerda. Pare no confortável.", "hold"),
       ...pair("peitoral-along", "Direita.", "Esquerda.", "hold", true),
       ...pair("sereia", "Incline à direita.", "Incline à esquerda.", "hold", true),
     ],
@@ -152,6 +155,7 @@ export const workouts: WorkoutTemplate[] = [
       ...pair("peitoral-along", "Direita.", "Esquerda.", "hold"),
       ...pair("panturrilha-along", "Direita atrás.", "Esquerda atrás.", "hold"),
       ...pair("balanco-lateral", "Perna direita, tronco quieto.", "Perna esquerda, tronco quieto."),
+      ...pair("posterior-pe", "Perna direita. Mãos na coxa.", "Perna esquerda. Mãos na coxa.", "hold"),
       ...pair("adutor-along", "Direita.", "Esquerda.", "hold", true),
       ...pair("quadriceps-along", "Direita.", "Esquerda.", "hold", true),
     ],
@@ -162,7 +166,7 @@ export const workouts: WorkoutTemplate[] = [
     title: "Treino misto",
     shortTitle: "Misto",
     focus: "Giba: recuo do queixo, rolo, peitoral e escápula, mais alongamentos de quadril. Tendão leve.",
-    why: `${mixWhy} Sexta é o dia da postura. O pescoço recua, o tórax estende, e o posterior continua sem alongamento agressivo.`,
+    why: `${mixWhy} Sexta é o dia da postura. O pescoço recua, o tórax estende, e o posterior alonga deitado, sem dor.`,
     equipment: ["nada", "banda", "mini", "rolo", "parede"],
     tendon: "analgesic",
     tendonAt: 5,
@@ -182,6 +186,7 @@ export const workouts: WorkoutTemplate[] = [
       reps("pull-apart", "Omoplatas para baixo."),
       ...pair("deslize-neural", "Perna direita. Sem esticar o joelho.", "Perna esquerda. Sem esticar o joelho."),
       ...pair("figura4", "Direita por cima.", "Esquerda por cima.", "hold"),
+      ...pair("posterior-deitado", "Perna direita. Alongue sem dor.", "Perna esquerda. Alongue sem dor.", "hold"),
       ...withMini([reps("escapula-mini", "Feche as escápulas com a mini-banda leve.")], "leve"),
       ...pair("panturrilha-along", "Direita.", "Esquerda.", "hold", true),
       ...pair("sereia", "Direita.", "Esquerda.", "hold", true),
@@ -212,6 +217,7 @@ export const workouts: WorkoutTemplate[] = [
       ...pair("peitoral-along", "Direita.", "Esquerda.", "hold"),
       ...pair("panturrilha-along", "Direita.", "Esquerda.", "hold"),
       ...withMini([reps("escapula-mini", "Mini-banda leve nos punhos.")], "leve"),
+      ...pair("posterior-pe", "Perna direita. Mãos na coxa.", "Perna esquerda. Mãos na coxa.", "hold"),
       ...pair("adutor-along", "Direita.", "Esquerda.", "hold", true),
       ...pair("figura4", "Direita.", "Esquerda.", "hold", true),
     ],
@@ -223,7 +229,7 @@ export const workouts: WorkoutTemplate[] = [
     shortTitle: "Misto",
     focus: "Alongamentos calmos, rolo longe do ísquio, pescoço e um dead bug leve. Tendão em recuperação.",
     why: `${mixWhy} Domingo é o misto mais calmo. Continua tendo flanco, peitoral e quadril, sem carga de força e sem rolar o osso em que você senta.`,
-    equipment: ["nada", "mini", "rolo", "parede"],
+    equipment: ["nada", "banda", "mini", "rolo", "parede"],
     tendon: "recovery",
     tendonAt: 6,
     steps: [
@@ -243,6 +249,7 @@ export const workouts: WorkoutTemplate[] = [
       ...withMini([reps("escapula-mini", "Leve, sem pressa.")], "leve"),
       hold("respiracao-9090", "Pés na parede, joelhos dobrados. Não estique a perna."),
       ...pair("deslize-neural", "Direita. Joelho dobrado.", "Esquerda. Joelho dobrado."),
+      ...pair("posterior-deitado", "Perna direita. Bem confortável.", "Perna esquerda. Bem confortável.", "hold"),
       hold("retracao", "Feche sustentando o queixo recuado.", true),
       ...pair("flexor", "Direita.", "Esquerda.", "hold", true),
     ],
