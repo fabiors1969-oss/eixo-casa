@@ -16,9 +16,9 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "Eixo Casa — pilates misto em casa",
+  title: "Eixo Casa — mobilidade em casa",
   description:
-    "Treino diário misto de pilates em casa, com abdômen, quadril e carga progressiva para tendinopatia proximal dos isquiotibiais. Montado para Fábio.",
+    "Treino diário de alongamento, mobilidade e core em casa, com mini-bandas e carga terapêutica para tendinopatia proximal dos isquiotibiais. Montado para Fábio.",
   applicationName: "Eixo Casa",
   appleWebApp: {
     capable: true,

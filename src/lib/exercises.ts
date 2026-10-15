@@ -1,11 +1,19 @@
-import type { Exercise, ExerciseCategory } from "./types";
+import type { Exercise, ExerciseCategory, MiniBand } from "./types";
+import { mobilityExercises } from "./mobility-exercises";
 
 export const equipmentLabel: Record<Exercise["equipment"][number], string> = {
   nada: "Só o tapete",
   banda: "Banda elástica",
+  mini: "Mini-banda",
   rolo: "Rolo",
   parede: "Parede",
   cadeira: "Cadeira",
+};
+
+export const miniLabel: Record<MiniBand, string> = {
+  leve: "Mini-banda leve",
+  media: "Mini-banda média",
+  forte: "Mini-banda forte",
 };
 
 export const categoryLabel: Record<ExerciseCategory, string> = {
@@ -1528,22 +1536,22 @@ export const exercises: Exercise[] = [
   },
   {
     id: "concha",
-    name: "Concha (Clamshell) com Banda",
+    name: "Concha (Clamshell) com Mini-banda",
     aka: "Clamshell",
     image: "/exercises/ex-concha.webp",
+    mini: "media",
     equipment: [
-      "banda"
+      "mini"
     ],
     category: "quadril",
     region: "Glúteo médio",
     goal: "Abrir o joelho de cima com a banda, sem rolar a bacia.",
     setup: [
-      "Deitado de lado, quadril a ~45° e joelhos a 90°, banda acima dos joelhos."
+      "Deitado de lado, quadril a ~45° e joelhos a 90°, mini-banda média acima dos joelhos — não na dobra do ísquio."
     ],
     how: [
       "Abra o joelho de cima sem rodar a pelve para trás.",
-      "Pausa de 2 s.",
-      "Avançado: clamshell em prancha lateral curta (sobre o joelho)."
+      "Dez aberturas. Toque em Feito quando terminar."
     ],
     cues: [
       "Pés juntos",
@@ -1551,7 +1559,7 @@ export const exercises: Exercise[] = [
       "Abre o joelho, não o tronco"
     ],
     breathing: "Expire ao abrir",
-    dose: "2–3 × 15 por lado",
+    dose: "10 por lado, mini-banda média",
     minPhase: 1,
     videos: [
       {
@@ -1567,26 +1575,27 @@ export const exercises: Exercise[] = [
       "Amplitude que rola a lombar"
     ],
     easier: "Sem banda, amplitude menor.",
-    harder: "Pausa de 3 segundos no alto. 15 por lado.",
-    why: "Glúteo médio estável segura a pelve a cada passada e a cada deslocamento lateral."
+    harder: "Mini-banda forte, ainda 10 por lado, bacia empilhada.",
+    why: "Glúteo médio estável segura a pelve a cada passada e a cada deslocamento lateral. A carga pesada fica na academia."
   },
   {
     id: "caminhada-lateral",
-    name: "Caminhada Lateral com Mini-banda",
+    name: "Monster Walk (caminhada lateral)",
     aka: "Lateral Band Walk",
-    image: "/exercises/ex-concha.webp",
+    image: "/exercises/ex-monster.webp",
+    mini: "media",
     equipment: [
-      "banda"
+      "mini"
     ],
     category: "quadril",
     region: "Quadril",
-    goal: "Caminhar de lado com a mini-banda, joelho macio, tronco alto.",
+    goal: "Passos laterais com mini-banda média acima dos joelhos, tronco alto, sem poste.",
     setup: [
-      "Mini-banda acima dos joelhos (ou nos tornozelos, mais difícil)."
+      "Mini-banda média acima dos joelhos. Não deixe a banda subir até a dobra do ísquio."
     ],
     how: [
-      "Mini-banda acima dos joelhos (ou nos tornozelos, mais difícil).",
-      "Meio agachamento raso, passos laterais mantendo a tensão e a pelve nivelada."
+      "Agachamento raso, passos curtos para o lado, pelve nivelada.",
+      "10 passos para um lado. O outro lado é o bloco seguinte."
     ],
     cues: [
       "Joelho aponta para o segundo dedo",
@@ -1594,7 +1603,7 @@ export const exercises: Exercise[] = [
       "Tronco não balança"
     ],
     breathing: "Contínua",
-    dose: "3 × 10 passos por lado",
+    dose: "10 passos por lado, mini-banda média",
     minPhase: 1,
     videos: [
       {
@@ -1610,7 +1619,7 @@ export const exercises: Exercise[] = [
       "Banda subindo até a dobra do ísquio se doer"
     ],
     easier: "Banda mais leve, menos passos.",
-    harder: "2 × 10 passos para cada lado, banda acima do joelho se o ísquio permitir — senão, nos tornozelos.",
+    harder: "Mini-banda forte, ainda 10 passos por lado, tronco quieto.",
     why: "Força lateral para o tênis e para o joelho não cair para dentro na corrida."
   },
   {
@@ -2175,7 +2184,7 @@ export const exercises: Exercise[] = [
     region: "Tendão isquiotibial",
     goal: "Levar a perna para trás em pé, contra a banda, tronco quase parado.",
     setup: [
-      "Mini-banda nos dois tornozelos, ou pise numa ponta e prenda a outra no tornozelo de trás. A mão na parede é só equilíbrio. Sem poste."
+      "Banda linear: uma ponta sob o pé da frente, a outra no tornozelo de trás. A mão na parede é só equilíbrio. Sem poste."
     ],
     how: [
       "Em pé, com leve apoio, leve a perna estendida para trás contraindo glúteos e isquiotibiais, sem arquear a lombar.",
@@ -2187,7 +2196,7 @@ export const exercises: Exercise[] = [
       "Joelhos da perna de apoio macio"
     ],
     breathing: "Expire ao estender",
-    dose: "3 × 12–15 por perna",
+    dose: "10 por perna",
     minPhase: 2,
     videos: [
       {
@@ -2206,7 +2215,7 @@ export const exercises: Exercise[] = [
       "Balançar"
     ],
     easier: "Sem banda, amplitude menor.",
-    harder: "3 × 12 por perna, pausa de um segundo atrás.",
+    harder: "Mini-banda média nos tornozelos, ainda 10 por perna, tronco quieto.",
     why: "Extensão de quadril com pouca flexão — padrão de fase 2, útil para a passada sem alongar o tendão."
   },
   {
@@ -2855,7 +2864,8 @@ export const exercises: Exercise[] = [
     easier: "Pés numa cadeira, se a parede for longe.",
     harder: "5 minutos, contando só a expiração. Nada para corrigir além do ar.",
     why: "Substitui as pernas estendidas na parede, que alongavam o posterior com o quadril fletido."
-  }
+  },
+  ...mobilityExercises,
 ];
 
 export const exerciseMap = Object.fromEntries(

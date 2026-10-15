@@ -17,7 +17,8 @@ import { VideoLink } from "@/components/video-link";
 import { useWakeLock } from "@/hooks/use-wake-lock";
 import { withBase } from "@/lib/base-path";
 import { todayKey } from "@/lib/date";
-import { getExercise } from "@/lib/exercises";
+import { useGymDays } from "@/lib/gym-store";
+import { getExercise, miniLabel } from "@/lib/exercises";
 import { feelingLabel, recordCompletion } from "@/lib/progress";
 import { formatClock } from "@/lib/date";
 import {
@@ -37,10 +38,12 @@ export function WorkoutPlayer({ template }: { template: WorkoutTemplate }) {
   const router = useRouter();
   const { phase: tendonPhase } = useTendonState();
   const plus = usePlusBlock();
+  const gymDays = useGymDays();
+  const gymDay = gymDays.includes(template.weekday);
   const hasPlus = workoutHasPlus(template);
   const resolved = useMemo(
-    () => resolveWorkout(template, tendonPhase, plus && hasPlus),
-    [hasPlus, plus, template, tendonPhase],
+    () => resolveWorkout(template, tendonPhase, plus && hasPlus, gymDay),
+    [gymDay, hasPlus, plus, template, tendonPhase],
   );
   const [locked, setLocked] = useState<Workout | null>(null);
   const workout = locked ?? resolved;
@@ -48,10 +51,13 @@ export function WorkoutPlayer({ template }: { template: WorkoutTemplate }) {
   const [phase, setPhase] = useState<Phase>("ready");
   const [remaining, setRemaining] = useState(TRANSITION_SECONDS + 4);
   const [paused, setPaused] = useState(false);
+  const [repCount, setRepCount] = useState(0);
   const [startedAt] = useState(() => Date.now());
   const [feelingOpen, setFeelingOpen] = useState(false);
 
-  const signature = resolved.steps.map((item) => `${item.exerciseId}:${item.seconds}`).join("|");
+  const signature = resolved.steps
+    .map((item) => `${item.exerciseId}:${item.reps ?? "t"}:${item.seconds}`)
+    .join("|");
   const [seenSignature, setSeenSignature] = useState(signature);
   if (!locked && phase === "ready" && seenSignature !== signature) {
     setSeenSignature(signature);
@@ -63,17 +69,6 @@ export function WorkoutPlayer({ template }: { template: WorkoutTemplate }) {
 
   const step = workout.steps[Math.min(index, workout.steps.length - 1)];
   const exercise = getExercise(step.exerciseId);
-
-  const totalWork = useMemo(
-    () => workout.steps.reduce((sum, item) => sum + item.seconds, 0),
-    [workout],
-  );
-
-  const elapsedWork = useMemo(() => {
-    const done = workout.steps.slice(0, index).reduce((sum, item) => sum + item.seconds, 0);
-    if (phase === "work") return done + (step.seconds - remaining);
-    return done;
-  }, [index, phase, remaining, step.seconds, workout.steps]);
 
   const goNext = useCallback(
     (fromTimer = false) => {
@@ -94,35 +89,53 @@ export function WorkoutPlayer({ template }: { template: WorkoutTemplate }) {
     [index, phase, workout.steps.length],
   );
 
+  const beginWork = useCallback(() => {
+    setLocked(workout);
+    setPhase("work");
+    setRepCount(0);
+    setRemaining(step.reps ? 0 : step.seconds);
+  }, [step.reps, step.seconds, workout]);
+
   const skip = useCallback(() => {
     void unlockAudio();
     if (phase === "ready" || phase === "transition") {
-      setLocked(workout);
-      setPhase("work");
-      setRemaining(step.seconds);
+      beginWork();
       return;
     }
-    goNext(false);
-  }, [goNext, phase, step.seconds, workout]);
+    goNext(Boolean(step.reps));
+  }, [beginWork, goNext, phase, step.reps]);
 
   const goPrev = useCallback(() => {
-    if (phase === "work" && remaining < step.seconds - 2) {
+    if (phase === "work" && step.reps && repCount > 0) {
+      setRepCount(0);
+      return;
+    }
+    if (phase === "work" && !step.reps && remaining < step.seconds - 2) {
       setRemaining(step.seconds);
       return;
     }
     if (index === 0) {
       setPhase("ready");
+      setRepCount(0);
       setRemaining(TRANSITION_SECONDS + 4);
       return;
     }
+    const prev = workout.steps[Math.max(0, index - 1)];
     setIndex((value) => Math.max(0, value - 1));
     setPhase("work");
-    const prev = workout.steps[Math.max(0, index - 1)];
-    setRemaining(prev.seconds);
-  }, [index, phase, remaining, step.seconds, workout.steps]);
+    setRepCount(0);
+    setRemaining(prev.reps ? 0 : prev.seconds);
+  }, [index, phase, remaining, repCount, step.reps, step.seconds, workout.steps]);
+
+  function countRep() {
+    if (!step.reps || phase !== "work") return;
+    void unlockAudio();
+    setRepCount((value) => Math.min(step.reps ?? value, value + 1));
+  }
 
   useEffect(() => {
     if (paused || phase === "done") return;
+    if (phase === "work" && step.reps) return;
     const id = window.setInterval(() => {
       setRemaining((value) => {
         if (value > 1) {
@@ -134,7 +147,8 @@ export function WorkoutPlayer({ template }: { template: WorkoutTemplate }) {
         if (phase === "ready" || phase === "transition") {
           setLocked(workout);
           setPhase("work");
-          return step.seconds;
+          setRepCount(0);
+          return step.reps ? 0 : step.seconds;
         }
         if (phase === "work") {
           goNext(true);
@@ -143,7 +157,7 @@ export function WorkoutPlayer({ template }: { template: WorkoutTemplate }) {
       });
     }, 1000);
     return () => window.clearInterval(id);
-  }, [goNext, paused, phase, step.seconds, workout]);
+  }, [goNext, paused, phase, step.reps, step.seconds, workout]);
 
   function finish(feeling?: Feeling) {
     recordCompletion({
@@ -156,8 +170,14 @@ export function WorkoutPlayer({ template }: { template: WorkoutTemplate }) {
     router.push("/");
   }
 
-  const progress = Math.min(100, Math.round((elapsedWork / totalWork) * 100));
   const isPrep = phase === "ready" || phase === "transition";
+  const repMode = Boolean(step.reps) && phase === "work";
+  const stepFraction = repMode
+    ? Math.min(1, repCount / (step.reps ?? 1))
+    : phase === "work" && step.seconds > 0
+      ? Math.min(1, (step.seconds - remaining) / step.seconds)
+      : 0;
+  const progress = Math.min(100, Math.round(((index + stepFraction) / workout.steps.length) * 100));
   const sideNote = sideRunCue(workout.steps, index);
   const shown = exercise;
   const shownDuration = phase === "done" ? 0 : remaining;
@@ -249,17 +269,25 @@ export function WorkoutPlayer({ template }: { template: WorkoutTemplate }) {
         <div className="mt-2">
           <VideoLink video={shown.videos[0]} className="h-10" />
         </div>
-        {phase === "ready" && hasPlus && (
+        {phase === "ready" && gymDay && (
+          <p className="mt-3 text-sm font-medium text-primary">
+            Dia de musculação: mobilidade e tendão leve. O bloco extra fica de fora.
+          </p>
+        )}
+        {phase === "ready" && hasPlus && !gymDay && (
           <button
             type="button"
             onClick={() => setPlusBlock(!plus)}
             className="mt-3 text-left text-sm font-medium text-primary"
           >
-            {plus ? "Bloco extra de abdômen ligado" : "Incluir bloco extra de abdômen"}
+            {plus ? "Bloco extra de mobilidade ligado" : "Incluir bloco extra de mobilidade"}
           </button>
         )}
         {step.note && (
           <p className="mt-1 text-base font-medium leading-snug">{step.note}</p>
+        )}
+        {step.mini && (
+          <p className="mt-1 text-sm font-medium text-terracotta">{miniLabel[step.mini]}</p>
         )}
         {sideNote && <p className="mt-1 text-sm font-medium text-primary">{sideNote}</p>}
         {!isPrep && (
@@ -267,16 +295,30 @@ export function WorkoutPlayer({ template }: { template: WorkoutTemplate }) {
         )}
 
         <div className="mt-3 flex items-end justify-between gap-4">
-          <p
-            className={cn(
-              "font-heading text-6xl tabular-nums leading-none tracking-tight",
-              remaining <= 5 && phase === "work" && "text-terracotta",
-            )}
-          >
-            {formatClock(shownDuration)}
-          </p>
-          <p className="mb-1 max-w-[10rem] text-right text-sm text-muted-foreground">
-            {blockHint(step, paused, isPrep)}
+          {repMode ? (
+            <button
+              type="button"
+              onClick={countRep}
+              className={cn(
+                "font-heading text-left text-6xl tabular-nums leading-none tracking-tight",
+                repCount >= (step.reps ?? 0) && "text-primary",
+              )}
+            >
+              {repCount}
+              <span className="sr-only">repetições feitas, toque para contar</span>
+            </button>
+          ) : (
+            <p
+              className={cn(
+                "font-heading text-6xl tabular-nums leading-none tracking-tight",
+                !step.reps && remaining <= 5 && phase === "work" && "text-terracotta",
+              )}
+            >
+              {formatClock(shownDuration)}
+            </p>
+          )}
+          <p className="mb-1 max-w-[11rem] text-right text-sm text-muted-foreground">
+            {blockHint(step, paused, isPrep, repCount)}
           </p>
         </div>
 
@@ -310,8 +352,8 @@ export function WorkoutPlayer({ template }: { template: WorkoutTemplate }) {
             Voltar
           </Button>
           <Button className="h-14 flex-1 text-base" onClick={skip}>
-            {isPrep ? "Começar" : "Pular"}
-            <ChevronRight className="size-5" />
+            {isPrep ? "Começar" : repMode ? "Feito" : "Pular"}
+            {repMode ? <Check className="size-5" /> : <ChevronRight className="size-5" />}
           </Button>
         </div>
       </div>
@@ -325,10 +367,15 @@ function blockHint(
   step: { seconds: number; reps?: number },
   paused: boolean,
   prep: boolean,
+  repCount = 0,
 ): string {
-  if (prep) return "Leia a montagem e entre na pose.";
+  if (prep && step.reps) return `${step.reps} repetições. Sem relógio — você encerra em Feito.`;
+  if (prep) return "Sustentação de 30 segundos. Leia a montagem.";
+  if (step.reps) {
+    if (repCount >= step.reps) return `${step.reps} feitas. Toque em Feito.`;
+    return `de ${step.reps}. Toque o número a cada repetição.`;
+  }
   if (paused) return "Pausado — a tela permanece acesa";
-  if (step.reps) return `${step.reps} repetições · até ${step.seconds} s`;
   return `${step.seconds} segundos neste bloco`;
 }
 
@@ -343,6 +390,8 @@ function sideRunCue(steps: { exerciseId: string; note?: string }[], index: numbe
   const first = steps[start]?.note ?? "";
   const second = steps[end]?.note ?? "";
   if (!first || first === second || first.includes("série") || second.includes("série")) return null;
+  const sideWord = /direit|esquerd|lado/i;
+  if (!sideWord.test(first) || !sideWord.test(second)) return null;
   return index === start ? "Em seguida: o outro lado." : "Agora o outro lado.";
 }
 
