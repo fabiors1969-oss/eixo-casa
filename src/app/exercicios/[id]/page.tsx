@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { VideoLink } from "@/components/video-link";
 import { withBase } from "@/lib/base-path";
-import { exercises, equipmentLabel, getExercise } from "@/lib/exercises";
+import { exercises, equipmentLabel, getExercise, miniLabel } from "@/lib/exercises";
 
 export function generateStaticParams() {
   return exercises.map((exercise) => ({ id: exercise.id }));
@@ -69,6 +69,7 @@ export default async function ExercisePage({
               {equipmentLabel[item]}
             </Badge>
           ))}
+          {data.mini && <Badge variant="secondary">{miniLabel[data.mini]}</Badge>}
         </div>
 
         <Section title="Montagem">

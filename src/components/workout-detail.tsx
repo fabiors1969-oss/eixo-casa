@@ -8,7 +8,8 @@ import { Button } from "@/components/ui/button";
 import { VideoLink } from "@/components/video-link";
 import { withBase } from "@/lib/base-path";
 import { formatClock, formatMinutes, weekdayName } from "@/lib/date";
-import { equipmentLabel, getExercise } from "@/lib/exercises";
+import { equipmentLabel, getExercise, miniLabel } from "@/lib/exercises";
+import { useGymDays } from "@/lib/gym-store";
 import { phaseGuides, tendonLoadLabel } from "@/lib/tendon";
 import { setPlusBlock, usePlusBlock, useTendonState } from "@/lib/tendon-store";
 import { resolveWorkout, workoutHasPlus, workoutTotalSeconds } from "@/lib/workouts";
@@ -17,8 +18,9 @@ import type { WorkoutTemplate } from "@/lib/types";
 export function WorkoutDetail({ template }: { template: WorkoutTemplate }) {
   const { phase } = useTendonState();
   const plus = usePlusBlock();
+  const gymDay = useGymDays().includes(template.weekday);
   const hasPlus = workoutHasPlus(template);
-  const workout = resolveWorkout(template, phase, plus && hasPlus);
+  const workout = resolveWorkout(template, phase, plus && hasPlus, gymDay);
   const guide = phaseGuides.find((item) => item.id === phase);
 
   return (
@@ -38,7 +40,7 @@ export function WorkoutDetail({ template }: { template: WorkoutTemplate }) {
         <p className="mt-3 text-base leading-relaxed">{workout.why}</p>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
           Tendão na fase {phase}
-          {guide ? ` · ${guide.title}` : ""}. Bloco de hoje: {tendonLoadLabel(template.tendon).toLowerCase()}.{" "}
+          {guide ? ` · ${guide.title}` : ""}. Bloco de hoje: {tendonLoadLabel(workout.tendon).toLowerCase()}.{" "}
           <Link href="/tendao" className="font-medium text-primary">
             Mudar a fase ou anotar a dor
           </Link>
@@ -51,13 +53,19 @@ export function WorkoutDetail({ template }: { template: WorkoutTemplate }) {
           ))}
         </div>
 
-        {hasPlus && (
+        {gymDay && (
+          <p className="mt-4 rounded-xl bg-secondary px-4 py-3 text-sm leading-relaxed">
+            Dia de musculação: este treino fica em mobilidade e o tendão entra na dose leve. O bloco extra
+            fica de fora.
+          </p>
+        )}
+        {hasPlus && !gymDay && (
           <button
             type="button"
             onClick={() => setPlusBlock(!plus)}
             className="mt-4 flex h-12 w-full items-center justify-center rounded-xl bg-secondary text-base font-medium"
           >
-            {plus ? "Bloco extra de abdômen ligado" : "Incluir bloco extra de abdômen"}
+            {plus ? "Bloco extra de mobilidade ligado" : "Incluir bloco extra de mobilidade"}
           </button>
         )}
 
@@ -91,8 +99,8 @@ export function WorkoutDetail({ template }: { template: WorkoutTemplate }) {
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="text-xs text-muted-foreground">
-                      {index + 1} · {item.reps ? `${item.reps} reps · ` : ""}
-                      {formatClock(item.seconds)}
+                      {index + 1} · {item.reps ? `${item.reps} repetições` : formatClock(item.seconds)}
+                      {item.mini ? ` · ${miniLabel[item.mini]}` : ""}
                     </p>
                     <p className="truncate font-medium">{exercise.name}</p>
                     <p className="truncate text-sm text-muted-foreground">{item.note ?? exercise.cues[0]}</p>

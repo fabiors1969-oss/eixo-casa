@@ -2,9 +2,9 @@
 
 Publicado em [https://fabiors1969-oss.github.io/eixo-casa/](https://fabiors1969-oss.github.io/eixo-casa/). Fonte: commit `72735acb6b10446b9014b49da5b0d923ef7a4ee0` da branch `cursor/tendao-pilates-videos-6fb1`.
 
-Aplicativo pessoal de pilates em casa: **treino diário misto** (mobilidade, abdômen, quadril e tendão no mesmo dia), com vídeo de cada exercício, blocos de cerca de 30 segundos ou 10 repetições, e bloco extra de abdômen.
+Aplicativo pessoal de treino em casa: **sessão diária mista** de alongamento, mobilidade, core e tendão. Sustentação e alongamento duram **30 segundos** e passam sozinhos. Exercício de repetição é uma série de **10**, sem teto de relógio: a pessoa conta e toca em **Feito**.
 
-Feito para o Fábio (57 anos, 10 anos de Pilates): mat intermediário/avançado para **correr e jogar tênis**, protegendo osteoartrose lombar leve, rigidez torácica, giba cervical e tendinopatia proximal dos isquiotibiais (8 meses). Em casa entram **banda elástica** e **rolo**. A banda se segura na mão, enrola no pé ou se pisa nela — o app não pede poste, porta nem coluna.
+Feito para o Fábio (57 anos, 10 anos de Pilates, musculação 3 vezes por semana): flexibilidade e mobilidade em primeiro lugar, core para **correr e jogar tênis**, correção da giba cervical e carga terapêutica da tendinopatia proximal dos isquiotibiais. A força de membros fica na academia. Em casa entram **banda longa**, **três mini-bandas circulares** (leve, média e forte) e **rolo**. Sem poste, porta ou coluna. Nos dias marcados como musculação, o treino do tapete fica em mobilidade e o tendão entra só na dose leve.
 
 Material de apoio ao treino. Alinhe a fase do tendão com o fisioterapeuta e o médico assistente. Dor aguda, formigamento ou tontura: pare.
 
@@ -20,7 +20,7 @@ Material de apoio ao treino. Alinhe a fase do tendão com o fisioterapeuta e o m
 | Sábado | Misto | Energia só na fase 4; senão, leve |
 | Domingo | Misto | Recuperação |
 
-Todos os dias misturam mobilidade, abdômen, quadril e o bloco da fase. O que muda é a ordem e a dose do posterior, para não empilhar carga pesada em dias seguidos. Alongamento de posterior, Saw, Spine Stretch e rolo no ísquio não entram. Nada de sit-up nem de rolo na lombar óssea.
+Todos os dias misturam alongamento, mobilidade, core e o bloco da fase. A mini-banda média entra no glúteo (concha, abdução, monster walk); a leve, na escápula. A forte fica como progressão na ficha do exercício, não como dose diária. O posterior de coxa alonga em intensidade moderada: sem dor; se o ísquio piorar no dia seguinte, reduzir a amplitude. Nada de sit-up nem de rolo na lombar óssea.
 
 O histórico do mês (dias treinados e % de adesão) fica em **Você**, só neste aparelho.
 

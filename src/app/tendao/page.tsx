@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { PosteriorNote } from "@/components/posterior-note";
 import { VideoLink } from "@/components/video-link";
 import { todayKey } from "@/lib/date";
 import {
@@ -71,7 +72,11 @@ export default function TendaoPage() {
         (JOSPT 2016): isometria, força lenta, flexão do quadril aos poucos, e só então energia para correr e jogar.
       </p>
 
-      <section className="mt-5 rounded-2xl bg-secondary/80 p-4 text-sm leading-relaxed">
+      <div className="mt-5">
+        <PosteriorNote />
+      </div>
+
+      <section className="mt-4 rounded-2xl bg-secondary/80 p-4 text-sm leading-relaxed">
         <p className="font-medium">Aviso para alinhar com o fisioterapeuta</p>
         <p className="mt-2">
           Isto é um roteiro de treino, não uma avaliação. Confirme o diagnóstico e a fase com quem te acompanha
@@ -84,9 +89,9 @@ export default function TendaoPage() {
       <section className="mt-4">
         <h2 className="font-heading text-xl">Fase atual</h2>
         <p className="mt-1 text-sm text-muted-foreground">
-          Fica salva neste aparelho. Todo dia mistura mobilidade, abdômen e quadril; o bloco do tendão sai
-          desta fase. A segunda é o dia mais pesado, a quinta é a segunda sessão, o sábado só vira energia na
-          fase 4. Nos outros dias a dose é leve.
+          Fica salva neste aparelho. A segunda é a dose terapêutica da semana, a quinta é a segunda sessão,
+          o sábado só vira energia na fase 4. Nos outros dias a dose é leve. Se o dia estiver marcado como
+          musculação, segunda, quinta e sábado também caem para a dose leve, para não somar com a perna.
         </p>
         <div className="mt-3 grid grid-cols-4 gap-2">
           {phaseGuides.map((item) => (
@@ -245,8 +250,8 @@ export default function TendaoPage() {
       <section className="mt-6">
         <h2 className="font-heading text-xl">O que saiu do plano</h2>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          Alongar o posterior não trata tendinopatia. Estes padrões comprimem a origem do tendão no ísquio, ou a
-          lombar, e foram trocados.
+          O alongamento do posterior continua no treino, em intensidade moderada. Estes outros padrões saíram:
+          flexionam a lombar, comprimem o ísquio direto ou são balísticos.
         </p>
         <ul className="mt-3 flex flex-col gap-3">
           {retiredMoves.map((item) => (

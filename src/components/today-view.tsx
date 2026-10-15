@@ -2,9 +2,12 @@
 
 import Link from "next/link";
 import { AlertTriangle, HeartPulse, Play, Smartphone } from "lucide-react";
+import { GymDays } from "@/components/gym-days";
+import { PosteriorNote } from "@/components/posterior-note";
 import { WorkoutCard } from "@/components/workout-card";
 import { Button } from "@/components/ui/button";
 import { formatLongDate, greeting, todayKey, todayWeekday, formatMinutes } from "@/lib/date";
+import { useGymDays } from "@/lib/gym-store";
 import { completionOn, currentStreak, monthAdherence, thisWeekCount, useProgress } from "@/lib/progress";
 import { usePlusBlock, useTendonState } from "@/lib/tendon-store";
 import { getWorkoutByWeekday, resolveWorkout, workoutHasPlus, workoutTotalSeconds } from "@/lib/workouts";
@@ -15,7 +18,8 @@ export function TodayView() {
   const plus = usePlusBlock();
   const weekday = todayWeekday();
   const template = getWorkoutByWeekday(weekday);
-  const workout = resolveWorkout(template, phase, plus && workoutHasPlus(template));
+  const gymDay = useGymDays().includes(template.weekday);
+  const workout = resolveWorkout(template, phase, plus && workoutHasPlus(template), gymDay);
   const date = todayKey();
   const done = Boolean(completionOn(date, progress));
   const streak = currentStreak(date, progress);
@@ -70,6 +74,10 @@ export function TodayView() {
         </p>
       </Link>
 
+      <div className="mb-5">
+        <GymDays />
+      </div>
+
       <p className="mb-3 text-sm font-medium text-muted-foreground">Treino de hoje · {formatMinutes(workoutTotalSeconds(workout))}</p>
       <WorkoutCard workout={template} done={done} today />
 
@@ -99,11 +107,15 @@ export function TodayView() {
         Instalar no Galaxy S23
       </Button>
 
-      <div className="mt-5 flex gap-3 rounded-2xl bg-secondary/80 p-4 text-sm leading-relaxed">
+      <div className="mt-5">
+        <PosteriorNote />
+      </div>
+
+      <div className="mt-3 flex gap-3 rounded-2xl bg-secondary/80 p-4 text-sm leading-relaxed">
         <AlertTriangle className="mt-0.5 size-5 shrink-0 text-terracotta" />
         <p>
           Dor aguda, formigamento ou tontura: pare. No tendão, até 3/10 durante o exercício pode seguir, se
-          a manhã seguinte voltar ao basal. Cabeça apoiada no rolo. Sem alongar o posterior.
+          a manhã seguinte voltar ao basal. Cabeça apoiada no rolo.
         </p>
       </div>
     </main>

@@ -107,13 +107,8 @@ export const painRule = {
 
 export const retiredMoves: { name: string; instead: string; why: string }[] = [
   {
-    name: "Alongamento de posterior com banda",
-    instead: "Carga progressiva (isometria e força lenta).",
-    why: "Flexão do quadril com o joelho estendido puxa e comprime a origem do tendão contra o ísquio. Alongar não trata tendinopatia.",
-  },
-  {
     name: "Spine Stretch Forward",
-    instead: "Fora do plano. Na fase 4, se o fisioterapeuta liberar, só com joelhos flexionados.",
+    instead: "Alongamento de isquiotibiais deitado ou em pé, moderado, sem dobrar a lombar.",
     why: "Sentar longo e dobrar o tronco à frente comprime o tendão e deixa a lombar em flexão — ruim para a artrose também.",
   },
   {
@@ -134,7 +129,7 @@ export const retiredMoves: { name: string; instead: string; why: string }[] = [
   {
     name: "Pernas estendidas na parede",
     instead: "Respiração 90/90 com os pés na parede e os joelhos dobrados.",
-    why: "Evita o alongamento de posterior com o quadril fletido.",
+    why: "O alongamento do dia é o deitado com a banda, ou em pé com as mãos na coxa, até o confortável.",
   },
   {
     name: "Balanço da perna para frente e para trás",
@@ -156,7 +151,7 @@ export const retiredMoves: { name: string; instead: string; why: string }[] = [
 export const sittingAdvice = [
   "Reunião, carro e consultório: assento macio ou uma almofada, e levante a cada 30–45 min.",
   "Evite cruzar as pernas e cadeira baixa, que enfia o quadril em flexão funda.",
-  "Nas fases 1 e 2, não alongue o posterior, não suba forte, não dê tiro e não aumente a passada.",
+  "O alongamento do posterior fica moderado: sem dor. Se o ísquio piorar no dia seguinte, reduza a amplitude. Nas fases 1 e 2, não suba forte, não dê tiro e não aumente a passada.",
   "Sono, carga da semana e pico repentino de volume pesam tanto quanto o exercício do dia.",
 ];
 
@@ -239,7 +234,7 @@ export function tendonLoadLabel(load: TendonLoad): string {
   return loadLabel[load];
 }
 
-function sets(exerciseId: string, seconds: number, note: string, times: number): WorkoutStep[] {
+function holds(exerciseId: string, seconds: number, note: string, times: number): WorkoutStep[] {
   return Array.from({ length: times }, (_, index) => ({
     exerciseId,
     seconds,
@@ -247,113 +242,105 @@ function sets(exerciseId: string, seconds: number, note: string, times: number):
   }));
 }
 
-function side(
-  exerciseId: string,
-  seconds: number,
-  note: string,
-  times = 1,
-): WorkoutStep[] {
-  const steps: WorkoutStep[] = [];
-  for (let set = 1; set <= times; set += 1) {
-    const suffix = times > 1 ? ` · série ${set}/${times}` : "";
-    steps.push(
-      { exerciseId, seconds, note: `${note} Perna direita.${suffix}` },
-      { exerciseId, seconds, note: `${note} Perna esquerda.${suffix}` },
-    );
-  }
-  return steps;
+function repSets(exerciseId: string, reps: number, note: string, times: number): WorkoutStep[] {
+  return Array.from({ length: times }, (_, index) => ({
+    exerciseId,
+    seconds: 40,
+    reps,
+    note: times > 1 ? `${note} · série ${index + 1}/${times}` : note,
+  }));
+}
+
+function sideHolds(exerciseId: string, seconds: number, note: string): WorkoutStep[] {
+  return [
+    { exerciseId, seconds, note: `${note} Perna direita.` },
+    { exerciseId, seconds, note: `${note} Perna esquerda.` },
+  ];
+}
+
+function sideReps(exerciseId: string, reps: number, note: string): WorkoutStep[] {
+  return [
+    { exerciseId, seconds: 40, reps, note: `${note} Perna direita.` },
+    { exerciseId, seconds: 40, reps, note: `${note} Perna esquerda.` },
+  ];
 }
 
 export function tendonSteps(phase: TendonPhase, load: TendonLoad): WorkoutStep[] {
   if (load === "analgesic") {
-    if (phase === 1) {
-      return sets("iso-ponte", 30, "Analgésico. Joelho ~90°, esforço 50–70%.", 3);
-    }
-    return sets("iso-ponte", 30, "Isometria analgésica, se o tendão gostou dela hoje.", 2);
+    return holds(
+      "iso-ponte",
+      30,
+      phase === 1
+        ? "Analgésico. Joelho ~90°, esforço 50–70%."
+        : "Isometria leve. A força pesada fica na academia e no dia marcado.",
+      phase === 1 ? 2 : 1,
+    );
   }
 
   if (load === "recovery") {
-    if (phase <= 2) {
-      return sets("iso-ponte", 30, "Leve. Joelho ~90°. Se passar de 2/10, pare na série.", 3);
-    }
-    return sets("iso-ponte", 30, "Uma série leve — ou pule, se o tendão acordou quieto.", 1);
+    return holds("iso-ponte", 30, "Leve. Joelho ~90°. Se passar de 2/10, pare.", phase <= 2 ? 2 : 1);
   }
 
   if (load === "sport") {
     if (phase < 4) {
-      return sets(
+      return holds(
         "iso-ponte",
         30,
-        phase === 1
-          ? "Antes de correr ou jogar. Sem tiro e sem subida hoje."
-          : "Antes do tênis ou da corrida. Energia explosiva ainda não.",
-        phase === 1 ? 3 : 2,
+        "Energia explosiva ainda não. Dose leve antes de correr ou jogar.",
+        2,
       );
     }
     return [
-      ...sets("swing", 30, "Dia alto. Quadril dispara, lombar não. Pare se passar de 3/10.", 4),
-      ...sets("skips", 30, "A-skip. Se estiver folgado, passe ao B-skip na última série.", 3),
-      ...sets("bounding", 30, "Saltos curtos e baixos. Amanhã não repete pliometria.", 3),
+      ...repSets("swing", 8, "Dia alto, curto. Quadril dispara, lombar não. Pare se passar de 3/10.", 2),
+      ...repSets("skips", 8, "A-skip. Se estiver folgado, passe ao B-skip na última série.", 1),
+      ...repSets("bounding", 6, "Saltos curtos e baixos. Não repita pliometria amanhã.", 1),
     ];
   }
 
   if (load === "second" && phase === 4) {
     return [
-      ...sets("rdl", 30, "Manutenção curta. Quinta foi dia de energia — sem swing hoje.", 2),
-      ...sets("curl-rolo", 30, "Quadril alto, puxe devagar.", 2),
-      ...sets("hip-thrust", 30, "Pesado e lento, não explosivo.", 1),
-      ...sets("iso-ponte", 30, "Feche com isometria se o tendão ainda falar.", 1),
+      ...repSets("rdl", 8, "Manutenção curta. Sem swing hoje.", 1),
+      ...repSets("curl-rolo", 8, "Quadril alto, puxe devagar.", 1),
+      ...holds("iso-ponte", 30, "Feche com isometria se o tendão ainda falar.", 1),
     ];
   }
 
   if (phase === 1) {
-    const bridgeSets = load === "strength" ? 5 : 3;
-    const longSets = load === "strength" ? 3 : 2;
+    const bridgeSets = load === "strength" ? 3 : 2;
     return [
-      ...sets("iso-ponte", 30, "Joelho ~90°. Empurre o chão. Lombar não arqueia. 50–70%.", bridgeSets),
-      ...side("iso-prono", 30, "Banda no pé e pontas nas mãos. Sem poste. Quadril colado."),
-      ...sets("iso-alavanca", 30, "Calcanhares longe do quadril. Pouca flexão. Fim de fase 1.", longSets),
+      ...holds("iso-ponte", 30, "Joelho ~90°. Empurre o chão. Lombar não arqueia. 50–70%.", bridgeSets),
+      ...sideHolds("iso-prono", 30, "Banda no pé e pontas nas mãos. Sem poste. Quadril colado."),
+      ...holds("iso-alavanca", 30, "Calcanhares longe do quadril. Pouca flexão.", 1),
     ];
   }
 
   if (phase === 2) {
-    const main = load === "strength" ? 3 : 2;
     return [
-      ...sets(
+      ...repSets(
         "ponte-unilateral",
-        30,
-        "Tempo 3-1-3. Comece com os dois pés se o unilateral passar de 3/10. Esforço 7–8/10.",
-        main,
+        8,
+        "Tempo lento. Os dois pés se o unilateral passar de 3/10. Hip thrust pesado fica na academia.",
+        load === "strength" ? 2 : 1,
       ),
-      ...sets("ponte-alavanca", 30, "Alavanca longa, devagar. Quadril pouco flexionado.", 2),
-      ...side("curl-banda", 30, "Banda no pé, pontas nas mãos. Sem porta. Tempo 3-1-3."),
-      ...sets("ponte-rolo", 30, "Calcanhares no rolo. Suba no glúteo, não jogue a lombar.", 2),
-      ...side("extensao-quadril", 30, "Mini-banda nos tornozelos. Sem poste. Tronco estável."),
-      ...(load === "strength"
-        ? [
-            ...sets("hip-thrust", 30, "Em casa: ponte com carga no quadril. Na academia: hip thrust.", 1),
-            ...sets("dobradica", 30, "Bastão nas costas. Joelhos macios. Tronco longo.", 1),
-          ]
-        : []),
+      ...repSets("ponte-alavanca", 8, "Alavanca longa, devagar. Quadril pouco flexionado.", 1),
+      ...sideReps("curl-banda", 10, "Banda no pé, pontas nas mãos. Sem porta."),
+      ...sideReps("extensao-quadril", 10, "Banda linear no pé. Sem poste. Tronco estável."),
     ];
   }
 
   if (phase === 3) {
-    const main = load === "strength" ? 3 : 2;
     return [
-      ...sets("rdl", 30, "Amplitude que o tendão aguenta hoje. Joelhos macios. Tempo lento.", main),
-      ...side("rdl-unilateral", 30, "Mão num apoio. Coluna longa. Desça só até 3/10."),
-      ...sets("curl-rolo", 30, "Calcanhares puxam o rolo. Quadril alto, lombar quieta.", main),
-      ...sets("ponte-alavanca", 30, "Unilateral se a fase 2 estiver sólida. Senão, os dois pés.", 2),
-      ...sets("nordico", 30, "Pés sob um sofá firme, banda nas mãos. Sem porta. Pule se não houver apoio seguro.", load === "strength" ? 2 : 1),
+      ...repSets("rdl", 8, "Amplitude que o tendão aguenta hoje. Joelhos macios. Carga pesada fica na academia.", load === "strength" ? 2 : 1),
+      ...sideReps("rdl-unilateral", 8, "Mão num apoio. Coluna longa. Desça só até 3/10."),
+      ...repSets("curl-rolo", 8, "Calcanhares puxam o rolo. Quadril alto, lombar quieta.", 1),
+      ...repSets("nordico", 5, "Pés sob um sofá firme, banda nas mãos. Sem porta. Pule se a academia já fez posterior.", 1),
     ];
   }
 
   return [
-    ...sets("rdl", 30, "Manutenção. Carga moderada, sem caçar recorde hoje.", 2),
-    ...side("rdl-unilateral", 30, "Apoiado. Controle na descida."),
-    ...sets("nordico", 30, "Pés sob um sofá firme, banda nas mãos. Sem porta. Manutenção curta.", 2),
-    ...sets("hip-thrust", 30, "Pesado e lento, não explosivo.", 2),
-    ...sets("curl-rolo", 30, "Manutenção da fase 3.", 2),
+    ...repSets("rdl", 8, "Manutenção curta. Sem caçar recorde.", 1),
+    ...sideReps("rdl-unilateral", 8, "Apoiado. Controle na descida."),
+    ...repSets("nordico", 5, "Pés sob um sofá firme, banda nas mãos. Sem porta.", 1),
+    ...holds("iso-ponte", 30, "Feche leve.", 1),
   ];
 }

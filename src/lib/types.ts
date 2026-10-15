@@ -1,4 +1,6 @@
-export type Equipment = "nada" | "banda" | "rolo" | "parede" | "cadeira";
+export type Equipment = "nada" | "banda" | "mini" | "rolo" | "parede" | "cadeira";
+
+export type MiniBand = "leve" | "media" | "forte";
 
 export type ExerciseCategory = "toracica" | "core" | "quadril" | "tendao" | "recuperacao";
 
@@ -24,6 +26,8 @@ export type Exercise = {
   cues: [string, string, string];
   breathing: string;
   dose: string;
+  /** Intensidade da mini-banda circular, quando o exercício usa uma. */
+  mini?: MiniBand;
   /** Menor fase do tendão em que o exercício entra no plano. */
   minPhase: TendonPhase;
   videos: VideoLink[];
@@ -38,8 +42,12 @@ export type WorkoutStep = {
   exerciseId: string;
   seconds: number;
   note?: string;
-  /** Quando o bloco é por repetição, o relógio de 30 s é só o teto. */
+  /**
+   * Série por repetição: não há relógio. A pessoa conta e toca em Feito.
+   * Sem `reps`, o bloco é sustentação e o relógio de `seconds` encerra sozinho.
+   */
   reps?: number;
+  mini?: MiniBand;
 };
 
 export type StepOption = {
@@ -53,6 +61,9 @@ export type StepTemplate = {
   seconds: number;
   note?: string;
   reps?: number;
+  mini?: MiniBand;
+  /** Some quando o dia está marcado como musculação. */
+  gymSkip?: boolean;
   plus?: boolean;
   /** A opção de maior minPhase ainda ≤ fase atual substitui exerciseId. */
   options?: StepOption[];

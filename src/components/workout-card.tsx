@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 import { withBase } from "@/lib/base-path";
 import { equipmentLabel } from "@/lib/exercises";
 import { formatMinutes, weekdayName } from "@/lib/date";
+import { useGymDays } from "@/lib/gym-store";
 import { usePlusBlock, useTendonState } from "@/lib/tendon-store";
 import { resolveWorkout, workoutHasPlus, workoutTotalSeconds } from "@/lib/workouts";
 import type { WorkoutTemplate } from "@/lib/types";
@@ -23,7 +24,8 @@ export function WorkoutCard({
 }) {
   const { phase } = useTendonState();
   const plus = usePlusBlock();
-  const resolved = resolveWorkout(workout, phase, plus && workoutHasPlus(workout));
+  const gymDay = useGymDays().includes(workout.weekday);
+  const resolved = resolveWorkout(workout, phase, plus && workoutHasPlus(workout), gymDay);
 
   return (
     <Link href={`/treino/${workout.id}`} className="block">
@@ -51,7 +53,10 @@ export function WorkoutCard({
         </div>
         <div className="flex flex-col gap-3 px-4 py-4">
           <p className="text-sm leading-relaxed text-muted-foreground">{workout.focus}</p>
-          <p className="text-xs font-medium text-primary">Fase {phase} do tendão neste treino</p>
+          <p className="text-xs font-medium text-primary">
+            Fase {phase} do tendão neste treino
+            {gymDay ? " · dia de musculação, dose leve" : ""}
+          </p>
           <div className="flex flex-wrap gap-1.5">
             {workout.equipment.map((item) => (
               <Badge key={item} variant="secondary">
